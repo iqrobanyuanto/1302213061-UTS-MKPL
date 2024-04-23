@@ -20,7 +20,6 @@ public class Employee {
 	
 	private String spouseIdNumber;
 
-	private List<String> childNames;
 	private List<String> childIdNumbers;
 	private HashMap<Integer, Integer> salary = new HashMap<Integer, Integer>() {{
 		put(1, 3000000);
@@ -35,7 +34,6 @@ public class Employee {
 		this.monthJoined = monthJoined;
 		this.isForeigner = isForeigner;
 		
-		childNames = new LinkedList<String>();
 		childIdNumbers = new LinkedList<String>();
 	}
 	
@@ -64,8 +62,7 @@ public class Employee {
 		this.spouseIdNumber = idNumber;
 	}
 	
-	public void addChild(String childName, String childIdNumber) {
-		childNames.add(childName);
+	public void addChild(String childIdNumber) {
 		childIdNumbers.add(childIdNumber);
 	}
 	
