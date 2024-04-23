@@ -1,2 +1,1 @@
-Nama: Iqro Banyuanto
-Nim: 1302213061
+Iqro Banyuanto - 1302213061
