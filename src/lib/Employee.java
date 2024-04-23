@@ -1,6 +1,7 @@
 package lib;
 
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -21,6 +22,11 @@ public class Employee {
 
 	private List<String> childNames;
 	private List<String> childIdNumbers;
+	private HashMap<Integer, Integer> salary = new HashMap<Integer, Integer>() {{
+		put(1, 3000000);
+		put(2, 5000000);
+		put(3, 7000000);
+	}};
 	
 	public Employee(String idNumber, int yearJoined, int monthJoined, boolean isForeigner) {
 
@@ -39,21 +45,10 @@ public class Employee {
 	 */
 	
 	public void setMonthlySalary(int grade) {	
-		if (grade == 1) {
-			monthlySalary = 3000000;
-			if (isForeigner) {
-				monthlySalary = (int) (3000000 * 1.5);
-			}
-		}else if (grade == 2) {
-			monthlySalary = 5000000;
-			if (isForeigner) {
-				monthlySalary = (int) (3000000 * 1.5);
-			}
-		}else if (grade == 3) {
-			monthlySalary = 7000000;
-			if (isForeigner) {
-				monthlySalary = (int) (3000000 * 1.5);
-			}
+		monthlySalary = salary.get(grade);
+		if (isForeigner) {
+			monthlySalary *= 1.5;
+			return;
 		}
 	}
 	
