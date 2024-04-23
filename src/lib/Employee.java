@@ -16,7 +16,6 @@ public class Employee {
 	private int yearJoined;
 	private int monthJoined;
 	private int dayJoined;
-	private int monthWorkingInYear;
 	
 	private boolean isForeigner;
 	private boolean gender; //true = Laki-laki, false = Perempuan
@@ -93,13 +92,32 @@ public class Employee {
 		
 		//Menghitung berapa lama pegawai bekerja dalam setahun ini, jika pegawai sudah bekerja dari tahun sebelumnya maka otomatis dianggap 12 bulan.
 		LocalDate date = LocalDate.now();
-		
-		if (date.getYear() == yearJoined) {
-			monthWorkingInYear = date.getMonthValue() - monthJoined;
-		}else {
+
+		int monthWorkingInYear = date.getMonthValue() - monthJoined;
+		if (date.getYear() > yearJoined) {
 			monthWorkingInYear = 12;
+			System.err.println("More than 12 month working per year");
+		}
+
+		// Menghitung pajak yang harus dibayar oleh pegawai
+		int tax = 0;
+
+		int NumberOfChild = childIdNumbers.size();
+		if (NumberOfChild > 3) {
+			NumberOfChild= 3;
 		}
 		
-		return TaxFunction.calculateTax(monthlySalary, otherMonthlyIncome, monthWorkingInYear, annualDeductible, spouseIdNumber.equals(""), childIdNumbers.size());
+		//
+		tax = (int) Math.round(0.05 * (((monthlySalary + otherMonthlyIncome) * monthWorkingInYear) - annualDeductible - 54000000));
+
+		if (spouseIdNumber.equals("")) {
+			tax = (int) Math.round(0.05 * (((monthlySalary + otherMonthlyIncome) * monthWorkingInYear) - annualDeductible - (54000000 + 4500000 + (NumberOfChild * 1500000))));
+		}
+		
+		if (tax < 0) {
+			return 0;
+		}
+		
+		return tax;
 	}
 }
